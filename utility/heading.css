@@ -1,0 +1,26 @@
+.heading {
+	font-size: 20px
+}
+
+.heading {
+	text-align: center;
+	background-color: #eaeaea;
+	height: auto;
+	margin-bottom: 20px;
+	padding: 10px 0px;
+	font-weight: 900;
+	color: #7b9ab5;
+}
+
+.title {
+    font-size: 20px;
+    color: #d85454;
+}
+.header{
+	font-size: 30px;
+    color: green;
+}
+.name{
+	  font-size: 15px;
+    color: blue;
+}

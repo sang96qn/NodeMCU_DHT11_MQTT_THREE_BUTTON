@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>MQTT Javascript</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="control.css">
+<link rel="stylesheet" href="heading.css">
+<link rel="stylesheet" href="background.css">
+
+</head>
+
+<body>
+  <div class="container">
+   
+<div class="heading">
+     <div class="row">
+      <div class="title">
+        DA NANG UNIVERSITY OF SCIENCE AND TECHNOOLOGY
+      </div>
+    </div>
+
+<div class="row">
+  <img src="DHBK.png" alt="DHBK Icon" style="width:80px;height:80px;">
+  <img src="DienTuVienThong.png" alt="DienTuVienThong Icon" style="width:80px;height:80px;">
+</div>
+
+<div class="row">
+   <div class="header">
+        Aquapopics System
+      </div>
+</div>
+
+      <div class="row">
+        <div class="name">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            Instructor:
+          </div>
+        </div>
+        <div class="name">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            Students:
+          </div>
+        </div>          
+      </div>
+    
+          <div class="row">
+        <div class="name">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            NGUYEN DUY NHAT VIEN
+          </div>
+        </div>
+        <div class="name">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            TRAN SANG & NGUYEN DINH NHAT TAN
+          </div>
+        </div>          
+      </div>
+</div>
+
+    <!-- Connection panel -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <span id="connectionStatus">Control Panel</span>
+          </div>
+          <div class="control">
+            <div class="panel-body" id="serverCollapse">
+                <div class="row">
+                <i class="fa fa-bath" aria-hidden="true"></i>Motor
+                  <label class="switch">                
+                        <input type="checkbox" id="switch1"  onclick="checkSwitch(1);">
+                        <span class="slider round"></span>
+                      </label>
+                </div>
+
+                <div class="row">
+                <i class="fa fa-umbrella" aria-hidden="true"></i>Canopy
+                  <label class="switch">                
+                        <input type="checkbox" id="switch2"  onclick="checkSwitch(2);">
+                        <span class="slider round"></span>
+                      </label>
+                </div>
+
+                <div class="row">
+                <i class="fa fa-lightbulb-o" aria-hidden="true"></i>Light
+                  <label class="switch">                
+                        <input type="checkbox" id="switch3"  onclick="checkSwitch(3);">
+                        <span class="slider round"></span>
+                      </label>
+                </div>                
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Control Panel -->
+
+      <!-- Subscription Panel -->
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <span id="connectionStatus">Subscription Panel</span>
+          </div>
+          <div class="subscript">
+            <div class="panel-body" id="serverCollapse">
+                <div class="row">
+                <i class="fa fa-thermometer-half" aria-hidden="true"></i>Temprature
+                  <div class="subs">
+                    <span id="temp1">35 </span>
+                    <span> &#x2103 </span>                   
+                  </div>                  
+                </div>
+
+                <div class="row">
+                <i class="fa fa-tint" aria-hidden="true"></i>Humidity
+                  <div class="subs">
+                    <span id="temp2">35 </span>
+                    <span> % </span> 
+                  </div>
+                </div>
+
+                <div class="row">
+                <i class="fa fa-eyedropper" aria-hidden="true"></i>PH         
+                  <div class="subs">
+                    <span id="temp3">7 </span>
+                     
+                  </div>
+                </div>                
+            </div>
+          </div>
+        </div>
+      </div>   
+      <!-- End Subscription Panel -->     
+   </div>
+  <!-- End of Connection panel -->
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <a class="chevron-toggle" data-toggle="collapse" data-target="#subscriptionsCollapse" href="#collapseOne">
+                        Last Messages
+                    </a>
+        </div>
+        <div class="panel-body collapse in fixed-height-panel" id="subscriptionsCollapse">
+          <table class="table table-hover table-condensed tableSection" id="lastMessageTable">
+            <thead>
+              <tr>
+                <th>Topic</th>
+                <th>Payload</th>
+                <th>Time</th>
+                <th>QoS</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <a class="chevron-toggle" data-toggle="collapse" data-target="#historyCollapse" href="#collapseOne">
+                        History
+                        </a>
+        </div>
+        <div class="panel-body collapse in fixed-height-panel" id="historyCollapse">
+          <span class="right"><a href="#" onclick="clearHistory()">Clear History</a></span>
+          <table class="table table-hover table-condensed  tableSection" id="incomingMessageTable">
+
+            <thead>
+              <tr>
+                <th>Topic</th>
+                <th>Payload</th>
+                <th>Time</th>
+                <th>Qos</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Source Paho MQTT Client-->
+  <script src="../src/paho-mqtt.js"></script>
+  <!-- Utility Javascript -->
+  <script src="myUtility.js"></script>
+  <script src= "define.js"></script>
+
+  <!-- Javascript used for Bootstrap Theme -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script>
+  connect();
+  </script>
+</body>
+
+</html>
